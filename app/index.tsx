@@ -1,25 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Monitor, Users, Shield } from 'lucide-react-native';
 import CosumarLogo from '@/components/CosumarLogo';
-import { useAuth } from '@/contexts/AuthContext';
 import { COSUMAR_COLORS } from '@/constants/colors';
 
 export default function HomeScreen() {
-  const { isAuthenticated, isAdmin, currentUser } = useAuth();
-
-  useEffect(() => {
-    if (isAuthenticated && currentUser) {
-      if (isAdmin) {
-        router.replace('/admin/dashboard');
-      } else {
-        router.replace('/employee/home');
-      }
-    }
-  }, [isAuthenticated, isAdmin, currentUser]);
-
   return (
     <View style={styles.background}>
       <SafeAreaView style={styles.container}>
@@ -33,7 +20,6 @@ export default function HomeScreen() {
           <TouchableOpacity
             style={[styles.button, styles.buttonDisplay]}
             onPress={() => router.push('/display')}
-            testID="button-display"
           >
             <Monitor size={32} color={COSUMAR_COLORS.white} />
             <Text style={styles.buttonTitle}>Affichage TV</Text>
@@ -43,7 +29,6 @@ export default function HomeScreen() {
           <TouchableOpacity
             style={[styles.button, styles.buttonEmployee]}
             onPress={() => router.push('/employee/login')}
-            testID="button-employee"
           >
             <Users size={32} color={COSUMAR_COLORS.white} />
             <Text style={styles.buttonTitle}>Espace Employé</Text>
@@ -53,7 +38,6 @@ export default function HomeScreen() {
           <TouchableOpacity
             style={[styles.button, styles.buttonAdmin]}
             onPress={() => router.push('/employee/login')}
-            testID="button-admin"
           >
             <Shield size={32} color={COSUMAR_COLORS.white} />
             <Text style={styles.buttonTitle}>Espace Admin</Text>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import QRCode from 'react-native-qrcode-svg';
+import { ArrowLeft } from 'lucide-react-native';
 import CosumarLogo from '@/components/CosumarLogo';
 import { usePresence } from '@/contexts/PresenceContext';
 import { COSUMAR_COLORS } from '@/constants/colors';
@@ -37,6 +38,15 @@ export default function DisplayScreen() {
       <Stack.Screen options={{ headerShown: false }} />
       <View style={styles.background}>
         <SafeAreaView style={styles.container}>
+        <TouchableOpacity 
+          style={styles.backButton} 
+          onPress={() => router.back()}
+          testID="back-button"
+        >
+          <ArrowLeft size={24} color={COSUMAR_COLORS.white} />
+          <Text style={styles.backButtonText}>Retour</Text>
+        </TouchableOpacity>
+        
         <View style={styles.header}>
           <CosumarLogo size={200} />
           <Text style={styles.title}>Système de Pointage</Text>
@@ -151,5 +161,28 @@ const styles = StyleSheet.create({
     color: COSUMAR_COLORS.gray,
     textAlign: 'center',
     paddingHorizontal: 40,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COSUMAR_COLORS.primary,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 25,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
+    zIndex: 10,
+  },
+  backButtonText: {
+    color: COSUMAR_COLORS.white,
+    fontSize: 16,
+    fontWeight: '600' as const,
+    marginLeft: 8,
   },
 });

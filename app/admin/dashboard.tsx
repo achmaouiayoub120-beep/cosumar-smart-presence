@@ -17,6 +17,7 @@ import {
   LogOut,
   UserPlus,
   BarChart3,
+  ArrowLeft,
 } from 'lucide-react-native';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePresence } from '@/contexts/PresenceContext';
@@ -108,12 +109,12 @@ export default function AdminDashboardScreen() {
 
     return (
       <View key={item.id} style={styles.tableRow}>
-        <Text style={[styles.tableCell, styles.cellMatricule]}>{item.matricule}</Text>
-        <Text style={[styles.tableCell, styles.cellName]}>
+        <Text style={[styles.tableCell, styles.cellMatricule, { fontSize: 12, color: COSUMAR_COLORS.darkGray }]}>{item.matricule}</Text>
+        <Text style={[styles.tableCell, styles.cellName, { fontSize: 12, color: COSUMAR_COLORS.darkGray }]}>
           {item.prenom} {item.nom}
         </Text>
-        <Text style={[styles.tableCell, styles.cellDept]}>{item.departement}</Text>
-        <Text style={[styles.tableCell, styles.cellTime]}>{item.heure}</Text>
+        <Text style={[styles.tableCell, styles.cellDept, { fontSize: 12, color: COSUMAR_COLORS.darkGray }]}>{item.departement}</Text>
+        <Text style={[styles.tableCell, styles.cellTime, { fontSize: 12, color: COSUMAR_COLORS.darkGray }]}>{item.heure}</Text>
         <View style={[styles.tableCell, styles.cellStatus]}>
           <View style={[styles.statusBadge, { backgroundColor: statusColor }]}>
             <Text style={styles.statusText}>{item.statut}</Text>
@@ -130,6 +131,16 @@ export default function AdminDashboardScreen() {
           title: 'Dashboard Admin',
           headerStyle: { backgroundColor: COSUMAR_COLORS.primary },
           headerTintColor: COSUMAR_COLORS.white,
+          headerLeft: () => (
+            <TouchableOpacity 
+              onPress={() => router.back()} 
+              style={{ marginLeft: 16, flexDirection: 'row', alignItems: 'center' }}
+              testID="back-button"
+            >
+              <ArrowLeft size={20} color={COSUMAR_COLORS.white} />
+              <Text style={{ color: COSUMAR_COLORS.white, marginLeft: 4, fontSize: 16 }}>Retour</Text>
+            </TouchableOpacity>
+          ),
           headerRight: () => (
             <TouchableOpacity onPress={handleLogout} style={{ marginRight: 16 }}>
               <LogOut size={24} color={COSUMAR_COLORS.white} />
@@ -455,8 +466,7 @@ const styles = StyleSheet.create({
     borderBottomColor: COSUMAR_COLORS.lightGray,
   },
   tableCell: {
-    fontSize: 12,
-    color: COSUMAR_COLORS.darkGray,
+    justifyContent: 'center',
   },
   cellMatricule: {
     width: 80,
